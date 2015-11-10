@@ -615,7 +615,7 @@ confirm_mount_btrfs() {
 select_device() {
 	
     DEVICE=""
-    devices_list=$(lsblk -d | awk '{print "/dev/" $1}' | grep 'sd\|hd\|vd');
+    devices_list=$(lsblk -d | awk '{print "/dev/" $1}' | grep 'nvme\|sd\|hd\|vd');
     
     for i in ${devices_list[@]}; do
         DEVICE="${DEVICE} ${i} -"
@@ -630,7 +630,7 @@ select_device() {
 select_grub_device() {
 	
     GRUB_DEVICE=""
-    grub_devices_list=$(lsblk -d | awk '{print "/dev/" $1}' | grep 'sd\|hd\|vd');
+    grub_devices_list=$(lsblk -d | awk '{print "/dev/" $1}' | grep 'nvme\|sd\|hd\|vd');
     
     for i in ${grub_devices_list[@]}; do
         GRUB_DEVICE="${GRUB_DEVICE} ${i} -"
@@ -837,7 +837,7 @@ mount_partitions() {
 # and sets the prefix accordingly.
 set_mount_type() {
 
-[[ $(echo ${PARTITION} | grep 'sd\|hd\|vd[a-z][1-99]') != "" ]] && MOUNT_TYPE="/dev/" || MOUNT_TYPE="/dev/mapper/"
+[[ $(echo ${PARTITION} | grep 'nvme\|sd\|hd\|vd[a-z][1-99]') != "" ]] && MOUNT_TYPE="/dev/" || MOUNT_TYPE="/dev/mapper/"
 	
 }
 
